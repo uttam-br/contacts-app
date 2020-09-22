@@ -1,4 +1,4 @@
-const NUM_CONTACTS = 100;
+const NUM_CONTACTS = 2;
 
 const firstNames = ["Uttam", "Aditya", "Ankit", "Pratik", "Dhanesh", "Tanish", "Divyanshu"];
 

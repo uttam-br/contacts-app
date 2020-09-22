@@ -32,8 +32,6 @@ const ContactsList = props => {
 }
 
 ContactsList.propTypes = {
-    renderItem: PropTypes.func,
-    renderSectionHeader: PropTypes.func,
     contacts: PropTypes.array,
 }
 

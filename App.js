@@ -1,8 +1,7 @@
 import React from 'react';
-import { SectionList, Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 import contacts, {compareNames} from './contacts.js';
 import Constants from 'expo-constants';
-import Row from './Row.js';
 import ContactsList from './ContactsList';
 import AddContactForm from './AddContactForm.js';
 
@@ -17,9 +16,16 @@ const styles = StyleSheet.create({
 
 export default class App extends React.Component {
   state = {
-    showContacts: false,
+    showContacts : false,
     contacts : contacts,
     showForm : false,
+  }
+
+  addContact = newContact => {
+    this.setState(prevState => ({
+      showForm : false,
+      contacts : [...prevState.contacts, newContact],
+    }))
   }
 
   toggleForm = () => {
@@ -27,21 +33,22 @@ export default class App extends React.Component {
   }
 
   toggleContacts = () => {
-    this.setState(prevState => ({showContacts: !prevState.showContacts}))
+    this.setState(prevState => ({showContacts : !prevState.showContacts}))
   }
 
   sort = () => {
     this.setState( prevState => ({
-      contacts: [...prevState.contacts].sort(compareNames)
+      contacts : [...prevState.contacts].sort(compareNames)
     }));
   }
 
   render() {
-    if(this.state.showForm) return (<AddContactForm toggleForm={ () => this.toggleForm() }/>)
+    if(this.state.showForm) 
+      return (<AddContactForm onSubmit={this.addContact} toggleForm={this.toggleForm}/>)
     return (
       <View style={styles.container}>
-        <Button title='Toggle Contacts' onPress={ () => this.toggleContacts() } />
-        <Button title='Add Contact' onPress={ () => this.toggleForm() } />
+        <Button title='Toggle Contacts' onPress={this.toggleContacts} />
+        <Button title='Add Contact' onPress={this.toggleForm} />
         { this.state.showContacts && <ContactsList contacts={this.state.contacts} /> }
       </View>
     );
